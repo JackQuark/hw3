@@ -49,4 +49,4 @@ ax[1].  set_xticks(np.linspace(-20,20,5))
 ax[1].  legend(['u-wind','v-wind'], fontsize=10)
 
 #save figure as specified .png data.
-plt.savefig('profile_%05d.png' %(ts))
+plt.savefig('profile_%05d.png' %(ts)) 
