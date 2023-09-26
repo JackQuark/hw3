@@ -1,0 +1,50 @@
+import math              as m 
+import numpy             as np
+import matplotlib.pyplot as plt
+import sys
+
+#use sys code to save user's choice.
+t = int(sys.argv[1])
+
+IVTl = []
+IVTn = np.arange(1, t+1)
+
+#use for loop to select .csv data from 00001 to 0000t.
+for i in range(t):
+    fo = open('/home/B12/b12209017/hw3/input/input_%05d.csv' %(i+1), 'r')
+    
+    #save number of data as n.
+    n  = fo.readline()
+
+    #reset the required variables.
+    IVTx,IVTy,IVT = 0., 0., 0.
+    
+    #load data into four array by numpy
+    p, qv, u, v   = np.loadtxt('/home/B12/b12209017/hw3/input/input_%05d.csv' %(i+1), dtype=float, comments=None, delimiter=',', skiprows=2, unpack=True)
+    
+    #hPa to Pa
+    p = p*100
+    
+    #calculate value of IVT and append it into a list(IVTl).
+    for j in range(int(n)-1):
+        IVTx = IVTx + (((u[j]*qv[j])+(u[j+1]*qv[j+1]))*0.5)*(p[j+1]-p[j])
+        IVTy = IVTy + (((v[j]*qv[j])+(v[j+1]*qv[j+1]))*0.5)*(p[j+1]-p[j])
+    IVTx = IVTx/-9.8
+    IVTy = IVTy/-9.8
+
+    IVT  = m.sqrt(IVTx**2 + IVTy**2)
+    IVTl.append(float(IVT))
+    
+#set the range,ticks,label of x-axis and y-axis,
+#and  draw a figure of unmber in x-axis and IVT in y-axis.
+plt.subplots(1, 1, figsize=(8,6))
+plt.plot(IVTn, IVTl, '-')
+plt.xlim([1,int(t)])
+plt.xticks(np.linspace(1,t,11))
+plt.title('IVT Time Series (t=1~%d)' %(t))
+plt.ylim([0,1000])
+plt.yticks(np.linspace(0,1000,6))
+plt.ylabel('kg/m/s')
+
+#save figure as specified .png data.
+plt.savefig('IVT_timeseries_%05d.png' %(t))
