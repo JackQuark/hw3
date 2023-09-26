@@ -9,7 +9,7 @@ t = int(sys.argv[1])
 IVTl = []
 IVTn = np.arange(1, t+1)
 
-#use for ioop to select .csv data from 00001 to 0000t.
+#use for loop to select .csv data from 00001 to 0000t.
 for i in range(t):
     fo = open('/home/B12/b12209017/hw3/input/input_%05d.csv' %(i+1), 'r')
     
