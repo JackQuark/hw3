@@ -42,6 +42,7 @@ for i in range(t):
     
 #set the range,ticks,label of x-axis and y-axis,
 #and  draw a figure of unmber in x-axis and IVT in y-axis.
+plt.subplots(1, 1, figsize=(8,6))
 plt.plot(IVTn, IVTl, '-')
 plt.xlim([1,int(t)])
 plt.xticks(np.linspace(1,t,11))
